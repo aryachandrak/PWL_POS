@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\userModel;
+use App\Https\LevelModel;
 use Illuminate\Support\Facades\Hash;
 
 class userController extends Controller
 {
     public function index(){
-        $user = userModel::all();
+        $user = userModel::with('level')->get();
         return view('user', ['data' => $user]);
     }
 
