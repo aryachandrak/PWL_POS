@@ -1,32 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Data User</title>
-</head>
-<body>
-    <h1>Data User</h1>
-    <a href="/user/tambah">+ Tambah User</a>
-    <table border="1" cellpadding="2" cellspacing="0">
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Nama</th>
-            <th>ID Level Pengguna</th>
-            <th>Kode Level</th>
-            <th>Nama Level</th>
-            <th>Aksi</th>
-        </tr>
-        @foreach ($data as $d)
-        <tr>
-            <td>{{$d->user_id}}</td>
-            <td>{{$d->username}}</td>
-            <td>{{$d->nama}}</td>
-            <td>{{$d->level_id}}</td>
-            <td>{{$d->level->level_kode}}</td>
-            <td>{{$d->level->level_nama}}</td>
-            <td><a href="/user/ubah/{{$d->user_id}}">Ubah</a> | <a href="/user/hapus/{{$d->user_id}}">Hapus</a></td>
-        </tr>
-       @endforeach
-    </table>
-</body>
-</html>
+@extends('adminlte::page') 
+ 
+@section('title', 'Dashboard') 
+ 
+@section('content_header') 
+    <h1>User</h1> 
+@stop 
+ 
+@section('content') 
+ 
+    <div class="card-body"> 
+        <form> 
+          <div class="row"> 
+            <div class="col-sm-6"> 
+              <!-- text input --> 
+              <div class="form-group"> 
+                <label>User id</label><input type="text" class="form-control" placeholder="user id"> 
+                <div> 
+                <div class="form-group"> 
+                <label>Level id</label><input type="text" class="form-control" placeholder="level id"> 
+                <div> 
+                <div class="form-group"> 
+                <label>Username</label><input type="text" class="form-control" placeholder="username"> 
+                <div> 
+                <div class="form-group"> 
+                <label>Nama</label><input type="text" class="form-control" placeholder="nama"> 
+                <div> 
+                <div class="form-group"> 
+                <label>Password</label><input type="text" class="form-control" placeholder="password"> 
+                <div> 
+              </div> 
+              <button type = "submit" class ="btn btn-info">Submit </button> 
+            </div> 
+@stop 
+ 
+@section('css') 
+    {{-- Add here extra stylesheets --}} 
+    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}} 
+@stop 
+ 
+@section('js') 
+    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script> 
+@stop 
