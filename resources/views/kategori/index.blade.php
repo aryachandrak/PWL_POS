@@ -1,12 +1,40 @@
+{{-- @extends('layouts.app') --}}
+
+{{-- Customize layout sections --}}
+
+{{-- @section('subtitle', 'Kategori')
+@section('content_header_title', 'Home')
+@section('content_header_subtitle', 'Kategori')
+
+@section('content')
+    <div class="container">
+        <div class="card">
+            <div class="card-header">Manage Kategori</div>
+            <div class="card-body">
+                {{ $dataTable->table() }}
+            </div>
+            <div class="kategoriCreate" style="padding-bottom: 10px; padding-left: 10px">
+                <a href="{{ url('/kategori/create')}}">
+                    <button type="submit" class="btn btn-primary">Tambah Kategori</button>
+                </a>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@push('scripts')
+    {{ $dataTable->scripts() }}
+@endpush --}}
+
 @extends('layouts.template')
 @section('content')
-    <div class="card card-outline card-primary">
+<div class="card card-outline card-primary">
         <div class="card-header">
             <h3 class="card-title">{{ $page->title }}</h3>
             <div class="card-tools">
                 <a href="{{url('kategori/create')}}" class="btn btn-sm btn-primary mt-1">Tambah</a>
             </div>
-        </div>
+            </div>
         <div class="card-body">
             @if (session('success'))
                 <div class="alert alert-success">{{session('success')}}</div>
@@ -19,25 +47,20 @@
                     <div class="form-group row">
                         <label class="col-1 control-label col-form-label">Filter:</label>
                         <div class="col-3">
-                            <select name="level_id" id="level_id" class="form-control" required>
+                            <select name="kategori_id" id="kategori_id" class="form-control" required>
                                 <option value="">- Semua -</option>
                                 @foreach ($kategori as $item)
-                                    <option value="{{$item->level_id}}">{{$item->kategori_nama}}</option>
+                                    <option value="{{$item->kategori_id}}">{{$item->kategori_nama}}</option>
                                 @endforeach
                             </select>
-                            <small class="form-text text-muted">Kategori Barang</small>
+                            <small class="form-text text-muted">Level Pengguna</small>
                         </div>
                     </div>
                 </div>
             </div>
-            <table class="table table-bordered table-striped table-hover table-sm" id="table_level">
+            <table class="table table-bordered table-striped table-hover table-sm" id="table_kategori">
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Kode Kategori</th>
-                        <th>Nama Kategori</th>
-                        <th>Aksi</th>
-                    </tr>
+                    <tr><th>ID</th><th>Kode Kategori</th><th>Nama</th><th>Aksi</th></tr>
                 </thead>
             </table>
         </div>
@@ -45,11 +68,10 @@
 @endsection
 @push('css')
 @endpush
-
 @push('js')
     <script>
         $(document).ready(function(){
-            var dataKategori = $('#table_level').DataTable({
+            var dataUser = $('#table_kategori').DataTable({
                 serverSide: true, //serverside true jika ingin menggunakan server side processing
                 ajax: {
                     "url": "{{ url('kategori/list') }}",
@@ -84,7 +106,7 @@
                 ]
             });
             $('#kategori_id').on('change', function(){
-                dataKategori.ajax.reload();
+                dataUser.ajax.reload();
             });
         });
     </script>

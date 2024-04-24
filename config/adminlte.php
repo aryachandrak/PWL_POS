@@ -316,9 +316,9 @@ return [
             'can' => 'manage-blog',
         ],
         [
-            'text' => 'manage kategori',
+            'text' => 'Manage Kategori',
             'url' => 'kategori',
-            'icon' => 'far fa-fw fa-file',
+            'icon' => 'bi bi-kanban',
         ],
         [
             'text' => 'pages',

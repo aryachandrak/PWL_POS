@@ -1,25 +1,28 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Yajra\DataTables\Facades\DataTables;
 use App\Models\UserModel;
 use App\Models\LevelModel;
-use Illuminatte\Htp\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-
-class userController extends Controller
+class UserController extends Controller
 {
-    // menampilkan halaman awal user
+    // public function index(){
+    //     // $user = UserModel::all();
+    //     // return view('user', ['data' => $user]);
+    //     $user = UserModel::with('level')->get();
+    //     return view('user', ['data' => $user]);
+    // }
     public function index()
     {
-        $breadcrumb = (object) [
+        $breadcrumb = (object)[
             'title' => 'Daftar User',
             'list' => ['Home', 'User']
         ];
 
-        $page = (object) [
+        $page = (object)[
             'title' => 'Daftar user yang terdaftar dalam sistem'
         ];
 
@@ -27,16 +30,16 @@ class userController extends Controller
 
         $level = LevelModel::all(); //ambil data level untuk filter level
 
-        return view('user.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level,'activeMenu' => $activeMenu]);
+        return view('user.index', ['breadcrumb' => $breadcrumb, 'page' => $page,'level' => $level, 'activeMenu' => $activeMenu]);
     }
 
-    // Ambil data user dalam bentuk json untuk datatables 
     public function list(Request $request)
     {
         $users = UserModel::select('user_id', 'username', 'nama', 'level_id')
             ->with('level');
 
         // Filter data user berdasarkan level_id
+
         if($request->level_id){
             $users->where('level_id', $request->level_id);
         }
@@ -75,10 +78,13 @@ class userController extends Controller
     {
         $request->validate([
             // username harus diisi, berupa string, minimal 3 karakter, harus unik dan disimpan di tabel m_user kolom username
-            'username' => 'required|string|min:3|unique:m_user,username',            
-            'nama'     => 'required|string|max:100', // nama harus diisi bertipe string dan maksimal 100 karakter            
-            'password' => 'required|min:5', // password harus diisi dan minimal 5 karakter           
-            'level_id' => 'required|integer'  // level harus diisi dan bertipe angka
+            'username' => 'required|string|min:3|unique:m_user,username',
+            // nama harus diisi bertipe string dan maksimal 100 karakter
+            'nama'     => 'required|string|max:100',
+            // password harus diisi dan minimal 5 karakter
+            'password' => 'required|min:5',
+            // level harus diisi dan bertipe angka
+            'level_id' => 'required|integer'
         ]);
 
         UserModel::create([
@@ -89,7 +95,7 @@ class userController extends Controller
         ]);
 
         return redirect('/user')->with('success', 'Data user berhasil disimpan');
-    }   
+    }
 
     public function show(string $id)
     {
@@ -132,10 +138,13 @@ class userController extends Controller
     {
         $request->validate([
             // username harus diisi, berupa string, minimal 3 karakter, harus unik dan disimpan di tabel m_user kolom username
-            'username' => 'required|string|min:3|unique:m_user,username,' .$id. ',user_id',            
-            'nama'     => 'required|string|max:100', // nama harus diisi bertipe string dan maksimal 100 karakter            
-            'password' => 'required|min:5', // password harus diisi dan minimal 5 karakter            
-            'level_id' => 'required|integer' // level harus diisi dan bertipe angka
+            'username' => 'required|string|min:3|unique:m_user,username,' .$id. ',user_id',
+            // nama harus diisi bertipe string dan maksimal 100 karakter
+            'nama'     => 'required|string|max:100',
+            // password harus diisi dan minimal 5 karakter
+            'password' => 'required|min:5',
+            // level harus diisi dan bertipe angka
+            'level_id' => 'required|integer'
         ]);
 
         UserModel::find($id)->update([
@@ -163,4 +172,42 @@ class userController extends Controller
             return redirect('/user')->with('error', 'Data user gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
     }
+//     public function tambah(){
+//         return view('user_tambah');
+//     }
+
+//     public function tambah_simpan(Request $request){
+//         UserModel::create([
+//             'username' => $request->username,
+//             'nama' => $request->nama,
+//             'password' => Hash::make('$request->password'),
+//             'level_id' => $request->level_id
+//         ]);
+//         return redirect('/user');
+//     }
+
+//     public function ubah($id){
+//         $user = UserModel::find($id);
+//         return view('user_ubah', ['data' => $user]);
+//     }
+
+//     public function ubah_simpan($id, Request $request){
+//         $user = UserModel::find($id);
+
+//         $user->username = $request->username;
+//         $user->nama = $request->nama;
+//         $user->password = Hash::make('$request->password');
+//         $user->level_id = $request->level_id;
+
+//         $user->save();
+
+//         return redirect('/user');
+//     }
+
+//     public function hapus($id){
+//         $user = UserModel::find($id);
+//         $user->delete();
+
+//         return redirect('/user');
+//     }
 }

@@ -16,28 +16,28 @@ class KategoriSeeder extends Seeder
         $data = [
             [
                 'kategori_id' => 1,
-                'kategori_kode' => 'elk',
-                'kategori_nama' => 'Elektronik',
+                'kategori_kode' => 'KCK',
+                'kategori_nama' => 'Kecantikan',
             ],
             [
                 'kategori_id' => 2,
-                'kategori_kode' => 'mkn',
-                'kategori_nama' => 'Makanan',
+                'kategori_kode' => 'PRT',
+                'kategori_nama' => 'Perlengkapan Rumah',
             ],
             [
                 'kategori_id' => 3,
-                'kategori_kode' => 'mnm',
-                'kategori_nama' => 'Minuman',
+                'kategori_kode' => 'ALE',
+                'kategori_nama' => 'Alat Elektronik',
             ],
             [
                 'kategori_id' => 4,
-                'kategori_kode' => 'prbt',
-                'kategori_nama' => 'Perabotan',
+                'kategori_kode' => 'AKS',
+                'kategori_nama' => 'Aksesoris Komputer dan HP',
             ],
             [
                 'kategori_id' => 5,
-                'kategori_kode' => 'ksht',
-                'kategori_nama' => 'Kesehatan',
+                'kategori_kode' => 'DPR',
+                'kategori_nama' => 'Dapur',
             ],
         ];
         DB::table('m_kategori')->insert($data);

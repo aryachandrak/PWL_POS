@@ -13,8 +13,8 @@ class LevelSeeder extends Seeder
      */
     public function run(): void
     {
-        $data = [
-            ['level_id' => 1, 'level_kode' => 'ADM', 'level_nama' => 'Administrator'],
+        $data=[
+            ['level_id' => 1, 'level_kode' => 'ADM', 'level_nama' => 'Administrasi'],
             ['level_id' => 2, 'level_kode' => 'MNG', 'level_nama' => 'Manager'],
             ['level_id' => 3, 'level_kode' => 'STF', 'level_nama' => 'Staff/Kasir'],
         ];

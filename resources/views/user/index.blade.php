@@ -61,7 +61,7 @@
                 "data": function(d){
                     d.level_id = $('#level_id').val();
                 }
-                },
+            },
             columns: [
                 {
                     data: "DT_RowIndex",
