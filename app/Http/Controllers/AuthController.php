@@ -38,8 +38,7 @@ class AuthController extends Controller
 
         // ambil data request username & password saja
         $credential = $request->only('username','password');
-
-        // dd(Auth::attempt($credential));
+        
         // cek jika data username dan password valid (sesuai) dengan data
         if(Auth::attempt($credential)){
             // kalau berhasil simpan data usernya di varible $user
