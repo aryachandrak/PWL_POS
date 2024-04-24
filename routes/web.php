@@ -118,3 +118,23 @@ Route::group(['prefix' => 'penjualan'], function () {
     Route::put('/{id}', [PenjualanController::class, 'update']);
     Route::delete('/{id}', [PenjualanController::class, 'destroy']);
 });
+
+Route::get('login', [AuthController::class, 'index'])->name('login');
+Route::get('register', [AuthController::class, 'register'])->name('register');
+Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('proses_register', [AuthController::class, 'proses_register'])->name('proses_register');
+
+//kita atur juga pada middleware menggunakan group pada routing
+//didalamnya terdapat group untuk mengecek kondisi login
+//jika user yang login adalah admin maka akan diarahkan ke AdminController
+//jika user yang login adalah manager maka akan diarahkan ke UserController
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::group(['middleware' => ['cek_login:1']], function () {
+        Route::resource('admin', AdminController :: class);
+    });
+    Route::group(['middleware' => ['cek_login:2']], function () {
+        Route::resource('manager', ManagerController :: class);
+    });
+});
